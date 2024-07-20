@@ -39,7 +39,7 @@ import AuctionCartPage from "./Pages/AuctionCartPage/AuctionCartPage";
 
 // Set the base URL for all axios requests
 axios.defaults.baseURL =
-  process.env.REACT_APP_API_PROXY || "http://localhost:5000";
+  process.env.REACT_APP_API_PROXY || "https://auctionwebapp-1.onrender.com";
 
 function App() {
   return (

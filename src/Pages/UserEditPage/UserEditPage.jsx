@@ -8,6 +8,7 @@ import { getError } from '../../utils';
 import LoadingDots from '../../Components/LoadingDots/LoadingDots';
 import Loading from '../../Components/Loading/Loading';
 import ErrorPage from '../../Components/ErrorPage/ErrorPage';
+import config from '../../config';
 
 const reducer = (state, action) => {
   switch (action.type) {

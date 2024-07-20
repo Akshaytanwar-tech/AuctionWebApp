@@ -36,7 +36,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`${config.url}/api/v2/orders`, {
+        const { data } = await axios.get("/api/v2/orders/summary/user", {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: "FETCH_SUCCESS", payload: data });
