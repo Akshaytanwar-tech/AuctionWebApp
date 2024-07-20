@@ -24,11 +24,8 @@ import { getAllOrder,getOrder,deleteOrder,deliverOrder,
  router.put('/:id/pay',payOrder);
  router.put( '/:id/deliver',deliverOrder);
 
-
-
- 
 router.get(
-    '/summary',
+    '/summary/user',
     isAuth,
     isAdmin,
     expressAsyncHandler(async (req, res) => {
