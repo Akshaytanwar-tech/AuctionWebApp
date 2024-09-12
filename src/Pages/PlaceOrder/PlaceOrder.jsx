@@ -1,22 +1,22 @@
-import React, { useContext, useEffect, useReducer } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from 'react-router-dom';
-import CheckoutSteps from '../../Components/CheckoutSteps/CheckoutSteps';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import Loading from '../../Components/Loading/Loading';
-import { toast } from 'react-toastify';
-import { getError } from '../../utils';
-import { Store } from '../../Store';
-import './PlaceOrder.css';
+import React, { useContext, useEffect, useReducer } from "react";
+import { Helmet } from "react-helmet-async";
+import { Link, useNavigate } from "react-router-dom";
+import CheckoutSteps from "../../Components/CheckoutSteps/CheckoutSteps";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import Loading from "../../Components/Loading/Loading";
+import { toast } from "react-toastify";
+import { getError } from "../../utils";
+import { Store } from "../../Store";
+import "./PlaceOrder.css";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'CREATE_REQUEST':
+    case "CREATE_REQUEST":
       return { ...state, loading: true };
-    case 'CREATE_SUCCESS':
+    case "CREATE_SUCCESS":
       return { ...state, loading: false };
-    case 'CREATE_FAIL':
+    case "CREATE_FAIL":
       return { ...state, loading: false };
 
     default:
@@ -44,9 +44,10 @@ export default function PlaceOrder() {
 
   const placeOrderHandler = async () => {
     try {
-      dispatch({ type: 'CREATE_REQUEST' });
+      dispatch({ type: "CREATE_REQUEST" });
+      
       const { data } = await axios.post(
-        '/api/v2/orders',
+        "/api/v2/orders",
         {
           orderItems: cart.cartItems,
           shippingAddress: cart.shippingAddress,
@@ -62,19 +63,21 @@ export default function PlaceOrder() {
           },
         }
       );
-      ctxDispatch({ type: 'CART_CLEAR' });
-      dispatch({ type: 'CREATE_SUCCESS' });
-      localStorage.removeItem('cartItems');
+      
+      ctxDispatch({ type: "CART_CLEAR" });
+      dispatch({ type: "CREATE_SUCCESS" });
+      localStorage.removeItem("cartItems");
+      
       navigate(`/order/${data.order._id}`);
     } catch (err) {
-      dispatch({ type: 'CREATE_FAIL' });
+      dispatch({ type: "CREATE_FAIL" });
       toast.error(getError(err));
     }
   };
 
   useEffect(() => {
     if (!cart.paymentMethod) {
-      navigate('/payment');
+      navigate("/payment");
     }
   }, [cart, navigate]);
   return (
@@ -110,11 +113,11 @@ export default function PlaceOrder() {
               </h2>
               <p className="text-gray-700 mb-2">
                 <strong>Name: </strong>
-                {cart.shippingAddress.fullName}{' '}
+                {cart.shippingAddress.fullName}{" "}
               </p>
               <p className="text-gray-700 mb-4">
                 <strong>Address: </strong> {cart.shippingAddress.address},
-                {cart.shippingAddress.city}, {cart.shippingAddress.pinCode},{' '}
+                {cart.shippingAddress.city}, {cart.shippingAddress.pinCode},{" "}
                 {cart.shippingAddress.country}
               </p>
               <Link
@@ -148,21 +151,21 @@ export default function PlaceOrder() {
                 <div className="flex justify-between">
                   <p className="text-gray-700">Items</p>
                   <p className="text-gray-700">
-                    {cart.itemsPrice.toLocaleString('en-IN')}
+                    {cart.itemsPrice.toLocaleString("en-IN")}
                   </p>
                 </div>
                 <hr />
                 <div className="flex justify-between">
                   <p className="text-gray-700">Shipping</p>
                   <p className="text-gray-700">
-                    {cart.shippingPrice.toLocaleString('en-IN')}
+                    {cart.shippingPrice.toLocaleString("en-IN")}
                   </p>
                 </div>
                 <hr />
                 <div className="flex justify-between">
                   <p className="text-gray-700">Tax</p>
                   <p className="text-gray-700">
-                    {cart.taxPrice.toLocaleString('en-IN')}
+                    {cart.taxPrice.toLocaleString("en-IN")}
                   </p>
                 </div>
                 <hr />
@@ -170,7 +173,7 @@ export default function PlaceOrder() {
                   <p className="text-lg font-semibold">Order Total</p>
                   <p className="text-lg font-semibold">
                     <small>₹</small>
-                    {cart.totalPrice.toFixed(2).toLocaleString('en-IN')}
+                    {cart.totalPrice.toFixed(2).toLocaleString("en-IN")}
                   </p>
                 </div>
                 <button
@@ -213,7 +216,7 @@ export default function PlaceOrder() {
                 </div>
                 <p className="text-gray-700 ml-auto">
                   Total: <small>₹</small>
-                  {(item.quantity * item.price).toLocaleString('en-IN')}
+                  {(item.quantity * item.price).toLocaleString("en-IN")}
                 </p>
               </div>
               <Link
