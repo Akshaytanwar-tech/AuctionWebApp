@@ -17,7 +17,7 @@ import { getAllOrder,getOrder,deleteOrder,deliverOrder,
 
  router.get('/',getAllOrder);
  router.get('/:id',getOrder);
- router.post('/',addressOrder);
+ router.post('/',isAuth,addressOrder);
 //  router.get('/summary',summaryOrder);
  router.get('/mine',mineOrder);
  router.delete('/:id',deleteOrder);

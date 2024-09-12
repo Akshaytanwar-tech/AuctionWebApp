@@ -19,6 +19,7 @@ import seedRouter from "./routes/seedRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import connectTomongo from "./db.js";
 
+
 dotenv.config();
 
 const app = express();

@@ -13,6 +13,7 @@ const orderRouter = express.Router();
   export const getAllOrder = ( isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
+    console.log("api called")
     const orders = await Order.find().populate('user', 'name');
     res.send(orders);
   })
@@ -20,12 +21,13 @@ const orderRouter = express.Router();
 
   export const addressOrder = (isAuth,
   expressAsyncHandler(async (req, res) => {
+    console.log("api called");
+    console.log(req.user)
     const newOrder = new Order({
       orderItems: req.body.orderItems.map((item) => ({
         ...item,
         product: item._id,
       })),
-
       shippingAddress: req.body.shippingAddress,
       paymentMethod: req.body.paymentMethod,
       itemsPrice: req.body.itemsPrice,
