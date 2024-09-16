@@ -19,10 +19,15 @@ import seedRouter from "./routes/seedRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import connectTomongo from "./db.js";
 
-
 dotenv.config();
 
 const app = express();
+
+const corsOptions = {
+  origin: "https://auction-web-app.vercel.app",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
