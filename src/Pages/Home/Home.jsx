@@ -86,7 +86,7 @@ function Home() {
         </Helmet>
         <BannerProduct/>
         <h2 className="flex mt-6 justify-center w-4/12 px-2 mx-auto text-4xl text-center text-gray-600 align-middle border-b-2 border-solid md:inline-block border-lightgray">
-          Listed Products
+          Auction Products
         </h2>
       </div>
 
