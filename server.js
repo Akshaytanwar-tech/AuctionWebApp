@@ -29,7 +29,7 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 
-app.use(express.json());
+app.use(express.json(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
