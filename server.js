@@ -24,9 +24,9 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-  origin: "https://auction-web-app.vercel.app",
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
+  origin: 'https://auction-web-app.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 app.use(express.json(corsOptions));
