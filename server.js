@@ -33,6 +33,7 @@ const app = express();
 // app.use(express.json(corsOptions));
 // app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.options('*', cors());
 
 // implementing api v2/for paypal
 app.get("/api/v2/keys/paypal", (req, res) => {
