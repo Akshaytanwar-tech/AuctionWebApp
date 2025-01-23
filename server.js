@@ -24,7 +24,7 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-  origin: "https://auction-web-app.vercel.app",
+  origin: "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
