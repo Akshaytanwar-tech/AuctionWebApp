@@ -23,16 +23,16 @@ dotenv.config();
 
 const app = express();
 
-const corsOptions = {
-  origin: "http://localhost:3000",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: "http://localhost:3000",
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   allowedHeaders: ["Content-Type", "Authorization"],
+//   credentials: true,
+// };
 
-app.use(express.json(corsOptions));
-app.use(express.urlencoded({ extended: true }));
-app.use(cors(corsOptions));
+// app.use(express.json(corsOptions));
+// app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // implementing api v2/for paypal
 app.get("/api/v2/keys/paypal", (req, res) => {
