@@ -24,9 +24,9 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-  origin: 'https://auction-web-app.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: "https://auction-web-app.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(express.json(corsOptions));
@@ -39,7 +39,12 @@ app.get("/api/v2/keys/paypal", (req, res) => {
 });
 
 connectTomongo();
-
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+})
 app.use("/api/v2/upload", uploadRouter);
 app.use("/api/v2/auth", authRouter);
 app.use("/api/v2/users", userRouter);
