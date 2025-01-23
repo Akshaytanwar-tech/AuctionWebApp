@@ -32,21 +32,25 @@ const corsOptions = {
 
 // app.use(express.json(corsOptions));
 // app.use(express.urlencoded({ extended: true }));
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
+const allowedOrigins = ['http://localhost:3000', 'https://localhost:3000', 'https://your-deployed-frontend.com'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
+// Allow preflight requests for all routes
 app.options('*', cors());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // Allow all origins (for debugging)
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200); // Handle preflight requests
-  }
-
-  next();
-});
 // implementing api v2/for paypal
 app.get("/api/v2/keys/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || "sandbox");
