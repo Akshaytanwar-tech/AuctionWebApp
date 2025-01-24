@@ -99,7 +99,7 @@ const CreateAuction = () => {
       dispatch({ type: "UPLOAD_SUCCESS" });
 
       toast.success("Image uploaded successfully");
-      setImageUrl(data.secure_url);
+      setImageUrl(data);
     } catch (err) {
       toast.error(getError(err));
       dispatch({ type: "UPLOAD_FAIL", payload: getError(err) });
