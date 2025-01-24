@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import { Server } from "socket.io";
 import http from "http";
 import cors from "cors";
-
+import bodyParser from "body-parser";
 import Auction from "./models/auctionModel.js";
 import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
@@ -22,17 +22,17 @@ import connectTomongo from "./db.js";
 dotenv.config();
 
 const app = express();
-
-// const corsOptions = {
-//   origin: "http://localhost:3000",
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-//   allowedHeaders: ["Content-Type", "Authorization"],
-//   credentials: true,
-// };
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors(corsOptions));
 
 // implementing api v2/for paypal
 app.get("/api/v2/keys/paypal", (req, res) => {
@@ -60,7 +60,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://auction-web-app.vercel.app",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
