@@ -36,8 +36,8 @@ import AuctionPaymentMethod from "./Pages/AuctionPaymentMethod/AuctionPaymentMet
 import AuctionCartPage from "./Pages/AuctionCartPage/AuctionCartPage";
 
 // Set the base URL for all axios requests
-// axios.defaults.baseURL = "https://auctionwebapp-1.onrender.com";
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "https://auctionwebapp-1.onrender.com";
+// axios.defaults.baseURL = "http://localhost:5000";
 
 function App() {
   return (
