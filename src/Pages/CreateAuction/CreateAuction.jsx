@@ -1,30 +1,30 @@
-import React, { useContext, useReducer, useState } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { Store } from '../../Store';
-import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
-import { getError } from '../../utils';
-import LoadingDots from '../../Components/LoadingDots/LoadingDots';
-import ErrorPage from '../../Components/ErrorPage/ErrorPage';
+import React, { useContext, useReducer, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Store } from "../../Store";
+import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
+import { getError } from "../../utils";
+import LoadingDots from "../../Components/LoadingDots/LoadingDots";
+import ErrorPage from "../../Components/ErrorPage/ErrorPage";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'UPDATE_REQUEST':
+    case "UPDATE_REQUEST":
       return { ...state, loadingUpdate: true };
-    case 'UPDATE_SUCCESS':
+    case "UPDATE_SUCCESS":
       return { ...state, loadingUpdate: false };
-    case 'UPDATE_FAIL':
+    case "UPDATE_FAIL":
       return { ...state, loadingUpdate: false };
-    case 'UPLOAD_REQUEST':
-      return { ...state, loadingUpload: true, errorUpload: '' };
-    case 'UPLOAD_SUCCESS':
+    case "UPLOAD_REQUEST":
+      return { ...state, loadingUpload: true, errorUpload: "" };
+    case "UPLOAD_SUCCESS":
       return {
         ...state,
         loadingUpload: false,
-        errorUpload: '',
+        errorUpload: "",
       };
-    case 'UPLOAD_FAIL':
+    case "UPLOAD_FAIL":
       return { ...state, loadingUpload: false, errorUpload: action.payload };
     default:
       return state;
@@ -39,24 +39,24 @@ const CreateAuction = () => {
   const [{ error, loadingUpdate, loadingUpload }, dispatch] = useReducer(
     reducer,
     {
-      error: '',
+      error: "",
     }
   );
 
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [startingBid, setStartingBid] = useState(100);
-  const [imageUrl, setImageUrl] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [imageUrl, setImageUrl] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispatch({ type: 'UPDATE_REQUEST' });
+      dispatch({ type: "UPDATE_REQUEST" });
       const { data } = await axios.post(
-        '/api/v2/auctions',
+        "/api/v2/auctions",
         {
           title,
           description,
@@ -71,14 +71,14 @@ const CreateAuction = () => {
         }
       );
       toast.success(data.message);
-      navigate('/auction');
+      navigate("/auction");
       // Handle success
-      dispatch({ type: 'UPDATE_SUCCESS' });
+      dispatch({ type: "UPDATE_SUCCESS" });
     } catch (error) {
       toast(error.response.data.message);
       // Handle error
       dispatch({
-        type: 'UPDATE_FAIL',
+        type: "UPDATE_FAIL",
         payload: getError(error),
       });
     }
@@ -87,22 +87,22 @@ const CreateAuction = () => {
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
-    bodyFormData.append('file', file);
+    bodyFormData.append("file", file);
     try {
-      dispatch({ type: 'UPLOAD_REQUEST' });
-      const { data } = await axios.post('/api/v2/upload', bodyFormData, {
+      dispatch({ type: "UPLOAD_REQUEST" });
+      const { data } = await axios.post("/api/v2/upload", bodyFormData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
           authorization: `Bearer ${userInfo.token}`,
         },
       });
-      dispatch({ type: 'UPLOAD_SUCCESS' });
+      dispatch({ type: "UPLOAD_SUCCESS" });
 
-      toast.success('Image uploaded successfully');
+      toast.success("Image uploaded successfully");
       setImageUrl(data.secure_url);
     } catch (err) {
       toast.error(getError(err));
-      dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });
+      dispatch({ type: "UPLOAD_FAIL", payload: getError(err) });
     }
   };
 
