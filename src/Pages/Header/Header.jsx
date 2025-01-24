@@ -7,59 +7,59 @@ import { Store } from "../../Store";
 import Nav from "./Nav";
 
 export default function Navbar() {
-  // const [text, setText] = useState("");
-  // const navigate = useNavigate();
+  const [text, setText] = useState("");
+  const navigate = useNavigate();
 
-  // const searchClicked = (e) => {
-  //   navigate(text ? `/search/?query=${text}` : "/");
-  //   setText("");
-  // };
+  const searchClicked = (e) => {
+    navigate(text ? `/search/?query=${text}` : "/");
+    setText("");
+  };
 
-  // const handleTextChange = (value) => {
-  //   setText(value);
-  // };
+  const handleTextChange = (value) => {
+    setText(value);
+  };
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
 
-  // for profile dropdown
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [isOpenAdmin, setIsOpenAdmin] = useState(false);
+  //for profile dropdown
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenAdmin, setIsOpenAdmin] = useState(false);
 
-  // eslint-disable-next-line
+  //eslint-disable-next-line
 
-  // useEffect(() => {
-  //   document.addEventListener("click", handleDocumentClick);
-  //   return () => {
-  //     document.removeEventListener("click", handleDocumentClick);
-  //   };
-  // }, [isOpen]);
+  useEffect(() => {
+    document.addEventListener("click", handleDocumentClick);
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, [isOpen]);
 
-  // useEffect(() => {
-  //   document.addEventListener("click", handleDocumentClick);
-  //   return () => {
-  //     document.removeEventListener("click", handleDocumentClick);
-  //   };
-  // }, [isOpenAdmin]);
+  useEffect(() => {
+    document.addEventListener("click", handleDocumentClick);
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, [isOpenAdmin]);
 
-  // function handleDocumentClick(e) {
-  //   if (
-  //     e.target.closest("#dropdownUserAvatarButton") ||
-  //     e.target.closest("#dropdownAvatar")
-  //   ) {
-  //     return;
-  //   }
-  //   setIsOpen(false);
-  //   setIsOpenAdmin(false);
-  // }
+  function handleDocumentClick(e) {
+    if (
+      e.target.closest("#dropdownUserAvatarButton") ||
+      e.target.closest("#dropdownAvatar")
+    ) {
+      return;
+    }
+    setIsOpen(false);
+    setIsOpenAdmin(false);
+  }
 
-  // function toggleDropdown() {
-  //   setIsOpen(!isOpen);
-  // }
+  function toggleDropdown() {
+    setIsOpen(!isOpen);
+  }
 
-  // function toggleDropdownAdmin() {
-  //   setIsOpenAdmin(!isOpenAdmin);
-  // }
+  function toggleDropdownAdmin() {
+    setIsOpenAdmin(!isOpenAdmin);
+  }
 
   function signoutHandler() {
     ctxDispatch({ type: "USER_SIGNOUT" });
@@ -69,18 +69,18 @@ export default function Navbar() {
     window.location.href = "/signin";
   }
 
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // const handleMenuClick = () => {
-  //   setIsMenuOpen(!isMenuOpen);
-  // };
+  const handleMenuClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-  // const handleOutsideClick = () => {
-  //   setIsMenuOpen(false);
-  // };
+  const handleOutsideClick = () => {
+    setIsMenuOpen(false);
+  };
   return (
     <>
-      {/* <ToastContainer position="bottom-center" limit={1} />
+      <ToastContainer position="bottom-center" limit={1} />
       <header className="text-gray-600 body-font shadow-lg">
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
           <Link
@@ -340,8 +340,8 @@ export default function Navbar() {
             )}
           </nav>
         </div>
-      </header> */}
-      <Nav userInfo={userInfo} signoutHandler={signoutHandler} />
+      </header>
+      {/* <Nav userInfo={userInfo} signoutHandler={signoutHandler} /> */}
     </>
   );
 }
