@@ -23,33 +23,16 @@ dotenv.config();
 
 const app = express();
 
-const corsOptions = {
-  origin: "http://localhost:3000",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: "http://localhost:3000",
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   allowedHeaders: ["Content-Type", "Authorization"],
+//   credentials: true,
+// };
 
-// app.use(express.json(corsOptions));
-// app.use(express.urlencoded({ extended: true }));
-// app.use(cors(corsOptions));
-
-const allowedOrigins = ['http://localhost:3000', 'https://localhost:3000', 'https://your-deployed-frontend.com'];
-
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-}));
-
-// Allow preflight requests for all routes
-app.options('*', cors());
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // implementing api v2/for paypal
 app.get("/api/v2/keys/paypal", (req, res) => {
@@ -57,12 +40,7 @@ app.get("/api/v2/keys/paypal", (req, res) => {
 });
 
 connectTomongo();
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//   next();
-// });
+
 app.use("/api/v2/upload", uploadRouter);
 app.use("/api/v2/auth", authRouter);
 app.use("/api/v2/users", userRouter);
@@ -82,7 +60,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.API_URI,
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
