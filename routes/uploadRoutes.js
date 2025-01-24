@@ -33,7 +33,7 @@ uploadRouter.post(
     // };
     // const result = await streamUpload(req);
     const result = await cloudinary.uploader.upload(req.file.path);
-    
+    console.log(result);
     res.send(result);
   }
 );
